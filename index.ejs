@@ -1,0 +1,36 @@
+<%-include('include/_header.ejs')%>
+
+<main id="mainSection">
+    <div class="container">
+        <div class="box-nav d-flex justify-between">
+            <a class="border-shadow" href="/add-user">
+                <span class="text-gradient">New User  <i class="fas fa-user"></i> </span>
+            </a>
+        </div>
+
+        <form action="/api/users" method="POST">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>e-mail</th>
+                        <th>Gender</th>
+                        <th>Status</th>
+                        
+
+                    </tr>
+                    <tbody>
+                        <%-include('include/_show.ejs')%>
+                    </tbody>
+                </thead>
+            </table>
+        </form>
+    </div>
+
+
+</main>
+
+<%-include('include/_footer.ejs')%>
+
+    
