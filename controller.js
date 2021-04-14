@@ -4,7 +4,7 @@ var userdb = require('../model/model');
 exports.create = (req,res) =>{
     // validate request
     if(!req.body){
-        res.send({message:'content cannot be empty'})
+        res.status(400).send({message: 'Content can not be empty'})
         return;
     }
     // new user
@@ -12,7 +12,7 @@ exports.create = (req,res) =>{
         name: req.body.name,
         email : req.body.email,
         gender : req.body.gender,
-        status : req.body.status,
+        status : req.body.status
     })
 
     // save user in db
@@ -25,8 +25,8 @@ exports.create = (req,res) =>{
 
         })
         .catch(err =>{
-            res.send({message:'some error occured while creating the user'})
-
+            res.status(500).send({message:err.message || 'some error occured while creating the user'})
+            
         })
     
 }
@@ -36,15 +36,15 @@ exports.find = (req,res) =>{
         userdb.findById(id)
         .then(data=>{
             if(!data){
-                res.send({message:`USER NOT FOUND WITH ID ${id}`})
-
+                res.status(404).send({message: `Not found user with id ${id}`})
             }
             else{
                 res.send(data)
             }
         })
         .catch(err=>{
-            res.send({message:`error retriving user with id ${id}`})
+            res.status(500).send({message: `Error retrieving user with id ${id}`})
+    
         })
         // only fetching the id 
     }
@@ -63,22 +63,23 @@ exports.find = (req,res) =>{
 }
 exports.update = (req,res) =>{
     if(!req.body){
-        res
+        return res 
+      .status(400)
         .send({message:`data to update cannot be empty`})
 
     }
     const id = req.params.id 
-    userdb.findByIdAndUpdate(id,req.body)
+    userdb.findByIdAndUpdate(id,req.body,{userFindAndModify : false})
     .then(data =>{
         if(!data){
-            res.send({message:`user not found`})
+            res.status(404).send({message:`user not found`})
         }
         else{
             res.send(data)
         }
     }) 
     .catch(err =>{
-        res.send({message:`error update user information`})
+        res.status(500).send({message:`error update user information`})
     })
 
      // update and delete ALWAYS require id   
@@ -90,14 +91,14 @@ exports.delete = (req,res) =>{
     userdb.findByIdAndDelete(id)
     .then(data =>{
         if(!data){
-            res.send({message:`check your id cannot delete it ${id}`})
+            res.status(404).send({message:`check your id cannot delete it ${id}`})
         }
         else{
             res.send({message:`user is deleted`})
         }
     })
     .catch(err =>{
-        res.send({message:`could not delete the user with id ${id}`})
+        res.stauts(500).send({message:`could not delete the user with id ${id}`})
     })
 
 }

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+
 const connectdb = async() =>{
     try{
         // mongo connection string
-        const con = await mongoose.connect('mongodb+srv://deepti:maheshwari1310@managment.ehdrq.mongodb.net/managment?retryWrites=true&w=majority',{
+        const con = await mongoose.connect('mongodb+srv://deepti:56789@managment.ehdrq.mongodb.net/managment?retryWrites=true&w=majority',{
             useNewUrlParser:true,
             useUnifiedTopology:true,
             useFindAndModify:true,

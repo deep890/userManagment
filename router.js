@@ -4,16 +4,16 @@ const services = require('../services/render')
 const controller = require('../controller/controller')
 
 //route
-router.get('/', services.homeRoute)
+router.get('/', services.homeRoutes)
 router.get('/add-user',services.add_user)
 
 router.get('/update-user',services.update_user)
     
 
 // api.route
-router.post('/api/users',controller.create)
-router.get('/api/users',controller.find)
-router.put('/api/users/:id',controller.update)
-router.delete('/api/users/:id',controller.delete)
+router.post('/api/users',controller.create);
+router.get('/api/users',controller.find);
+router.put('/api/users/:id',controller.update);
+router.delete('/api/users/:id',controller.delete);
 
 module.exports = router
